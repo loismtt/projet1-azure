@@ -15,6 +15,6 @@ spec:
     spec:
       containers:
         - name: nginx
-          image: nginx:latest
+          image: ghcr.io/linuxserver/nginx:latest
           ports:
             - containerPort: 80
