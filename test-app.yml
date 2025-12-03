@@ -1,0 +1,24 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: test-app
+  namespace: argocd
+spec:
+  project: default
+
+  # Source du code (Git, Helm, etc.)
+  source:
+    repoURL: https://github.com/ton-utilisateur/ton-repo.git
+    targetRevision: HEAD
+    path: k8s-manifests
+
+  # Destination du déploiement
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: default
+
+  # Mode de synchronisation automatique
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
