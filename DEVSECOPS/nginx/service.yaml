@@ -10,5 +10,4 @@ spec:
     - protocol: TCP
       port: 80
       targetPort: 80
-      nodePort: 30081   # port à exposer sur le master
-  type: NodePort
+  type: ClusterIP
