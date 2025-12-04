@@ -6,4 +6,4 @@ namePrefix: prod-
 
 patchesStrategicMerge:
   - patch-configmap.yaml
-
+  - service-patch.yaml
