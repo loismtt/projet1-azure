@@ -6,4 +6,3 @@ namePrefix: dev-
 
 patchesStrategicMerge:
   - patch-configmap.yaml
-  - service-patch.yaml
