@@ -20,7 +20,7 @@ spec:
             - containerPort: 80
           volumeMounts:
             - name: html-content
-              mountPath: /config/www
+              mountPath: /config/www       # Chemin attendu par l'image
               readOnly: true
       volumes:
         - name: html-content
