@@ -12,7 +12,7 @@ jobs:
       uses: actions/checkout@v4
 
     - name: Lancement du scan Trivy sur l'image Nginx et exportation
-      uses: aquasec/trivy-action@v0.1.19
+      uses: aquasecurity/trivy-action@master
       with:
         image-ref: 'ghcr.io/linuxserver/nginx:latest'
         scan-type: 'image'
