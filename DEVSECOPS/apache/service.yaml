@@ -8,6 +8,7 @@ spec:
     app: apache2
   ports:
     - protocol: TCP
-      port: 80
-      targetPort: 80
-  type: LoadBalancer
+      port: 80          # Port interne du cluster
+      targetPort: 80    # Port du pod
+      nodePort: 30082   # Port exposé sur le master
+  type: NodePort
