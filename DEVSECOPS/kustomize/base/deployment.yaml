@@ -20,7 +20,7 @@ spec:
             - containerPort: 80
           volumeMounts:
             - name: html-content
-              mountPath: /var/www/html
+              mountPath: /config/www
               readOnly: true
       volumes:
         - name: html-content
