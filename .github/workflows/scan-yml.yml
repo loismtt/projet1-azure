@@ -1,4 +1,4 @@
-name: Trivy Scan - Fichiers YAML
+name: Trivy Scan - Tous les YAML
 
 on:
   workflow_dispatch:
@@ -14,17 +14,15 @@ jobs:
     - name: Lancer le scan Trivy sur tous les fichiers YAML
       uses: aquasecurity/trivy-action@master
       with:
-        scan-type: 'fs'              # 'fs' = filesystem scan (scan de fichiers)
+        scan-type: 'fs'       # scan de fichiers
+        input: './'           # racine du repo
         format: 'table'
         severity: 'CRITICAL,HIGH'
         exit-code: '1'
-        # On cible tous les fichiers YAML
-        input: './'                  # le répertoire racine du repo
-        include: '**/*.yml,**/*.yaml'
-        output: 'trivy-report-yaml.txt'
+        ignore-unfixed: 'false'
 
     - name: Upload du rapport Trivy en tant qu'artefact
       uses: actions/upload-artifact@v4
       with:
         name: trivy-yaml-report
-        path: trivy-report-yaml.txt
+        path: trivy-report.txt
