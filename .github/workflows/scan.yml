@@ -9,25 +9,22 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-    - name: ⬇️ Checkout code
+    - name: Checkout code
       uses: actions/checkout@v4
 
-    - name: 🛡️ Lancement du scan Trivy sur l'image Nginx et exportation
-      uses: aquasec/trivy-action@master
+    - name: Lancement du scan Trivy sur l'image Nginx et exportation
+      # Ligne corrigée : Utilisation de @main au lieu de @master ou d'une version obsolète
+      uses: aquasec/trivy-action@main 
       with:
         image-ref: 'ghcr.io/linuxserver/nginx:latest'
         scan-type: 'image'
         format: 'table'
         severity: 'CRITICAL,HIGH'
         exit-code: '1'
-        # --- Ajout de l'exportation dans un fichier ---
         output: 'trivy-report-nginx.txt'
-        # ---------------------------------------------
 
-    - name: ⬆️ Upload du rapport Trivy en tant qu'artefact
+    - name: Upload du rapport Trivy en tant qu'artefact
       uses: actions/upload-artifact@v4
       with:
         name: trivy-security-report
         path: trivy-report-nginx.txt
-        # Optionnel: définir la durée de rétention de l'artefact (en jours)
-        # retention-days: 7
