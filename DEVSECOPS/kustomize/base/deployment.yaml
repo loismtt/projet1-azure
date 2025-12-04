@@ -22,6 +22,9 @@ spec:
             - name: html-content
               mountPath: /config/www/
               readOnly: true
+          securityContext:
+            runAsUser: 911
+            runAsGroup: 911
       volumes:
         - name: html-content
           configMap:
