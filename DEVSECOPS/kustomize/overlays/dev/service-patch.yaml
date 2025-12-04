@@ -1,9 +1,9 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: nginx-service
+  name: prod-nginx-service   
 spec:
   ports:
     - port: 80
       protocol: TCP
-      nodePort: 30083
+      nodePort: 30083        

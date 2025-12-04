@@ -4,6 +4,10 @@ resources:
 
 namePrefix: dev-
 
-patchesStrategicMerge:
-  - patch-configmap.yaml
-  - service-patch.yaml
+# Utilisation de la syntaxe moderne 'patches' au lieu de patchesStrategicMerge
+patches:
+  - path: patch-configmap.yaml
+  - path: service-patch.yaml
+    target:
+      kind: Service
+      name: prod-nginx-service
