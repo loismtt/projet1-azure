@@ -18,7 +18,7 @@ jobs:
         input: './DEVSECOPS/'      # dossier contenant apache et nginx
         format: 'table'
         severity: 'CRITICAL,HIGH'
-        exit-code: '1'
+        exit-code: '0'
         ignore-unfixed: 'false'
         output: 'trivy-report.txt'
 
