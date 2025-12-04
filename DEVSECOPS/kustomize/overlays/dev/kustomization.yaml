@@ -2,7 +2,7 @@ namespace: nginx-test
 resources:
   - ../../base
 
-namePrefix: prod-
+namePrefix: dev-
 
 patchesStrategicMerge:
   - patch-configmap.yaml
