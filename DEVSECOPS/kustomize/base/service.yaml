@@ -1,3 +1,4 @@
+# service.yaml (dans base/)
 apiVersion: v1
 kind: Service
 metadata:
@@ -10,5 +11,4 @@ spec:
     - protocol: TCP
       port: 80
       targetPort: 80
-      # nodePort laissé vide
   type: NodePort
