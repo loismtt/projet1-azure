@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tiny-httpd-deployment
+  namespace: tiny-httpd
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tiny-httpd
+  template:
+    metadata:
+      labels:
+        app: tiny-httpd
+    spec:
+      containers:
+        - name: tiny-httpd
+          image: ghcr.io/cisagov/apache2:nightly
+          ports:
+            - containerPort: 80
