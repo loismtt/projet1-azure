@@ -1,12 +1,13 @@
+# overlays/dev/service-patch.yaml
 
 apiVersion: v1
 kind: Service
 metadata:
 
-  name: **nginx-service**
+  name: nginx-service 
 spec:
   ports:
     - protocol: TCP
       port: 80
       targetPort: 80
-      nodePort: 30083 
+      nodePort: 30083
