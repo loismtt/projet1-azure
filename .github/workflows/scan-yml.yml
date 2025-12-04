@@ -1,4 +1,4 @@
-name: Trivy Scan - Tous les YAML
+name: Trivy Scan - YAML Projet1-Azure
 
 on:
   workflow_dispatch:
@@ -14,13 +14,13 @@ jobs:
     - name: Lancer le scan Trivy sur tous les fichiers YAML
       uses: aquasecurity/trivy-action@master
       with:
-        scan-type: 'fs'       # scan de fichiers
-        input: './'           # racine du repo
+        scan-type: 'iac'              # scan Infrastructure as Code
+        input: './DEVSECOPS/'         # le répertoire contenant apache et nginx
         format: 'table'
         severity: 'CRITICAL,HIGH'
         exit-code: '1'
         ignore-unfixed: 'false'
-        output: 'trivy-report.txt'  # <- création du fichier de sortie
+        output: 'trivy-report.txt'    # fichier de sortie
 
     - name: Upload du rapport Trivy en tant qu'artefact
       uses: actions/upload-artifact@v4
