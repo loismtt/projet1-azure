@@ -2,11 +2,8 @@ namespace: nginx-test
 resources:
   - ../../base
 
-namePrefix: dev-
+namePrefix: prod-
 
-patches:
-  - path: patch-configmap.yaml
-  - path: service-patch.yaml
-    target:
-      kind: Service
-      name: dev-nginx-service
+patchesStrategicMerge:
+  - patch-configmap.yaml
+  - service-patch.yaml
