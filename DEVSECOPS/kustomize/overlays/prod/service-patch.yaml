@@ -1,13 +1,13 @@
+# overlays/dev/service-patch.yaml
+
 apiVersion: v1
 kind: Service
 metadata:
-  # NOM CORRECT : Utilise le préfixe 'dev-' pour correspondre au Namespace cible
-  name: **prod-nginx-service** # NAMESPACE CORRECT : Utilise le Namespace 'dev'
-  namespace: **nginx-test-prod**
+
+  name: nginx-service 
 spec:
   ports:
     - protocol: TCP
       port: 80
       targetPort: 80
-      # NodePort: Utilise le port unique attribué à DEV
-      nodePort: 30084
+      nodePort: 30086
