@@ -8,7 +8,7 @@ spec:
     app: nginx
   ports:
     - protocol: TCP
-      port: 80          # Port interne du cluster
-      targetPort: 80    # Port du pod
-      nodePort: 30083   # Port exposé sur le master
+      port: 80
+      targetPort: 80
+      # nodePort laissé vide
   type: NodePort
