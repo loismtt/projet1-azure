@@ -1,0 +1,242 @@
+
+Report Summary
+
+┌─────────────────────────────────────────────┬────────────┬───────────────────┐
+│                   Target                    │    Type    │ Misconfigurations │
+├─────────────────────────────────────────────┼────────────┼───────────────────┤
+│ .                                           │ terraform  │         0         │
+├─────────────────────────────────────────────┼────────────┼───────────────────┤
+│ DEVSECOPS/apache/apache-html-configmap.yaml │ kubernetes │         0         │
+├─────────────────────────────────────────────┼────────────┼───────────────────┤
+│ DEVSECOPS/apache/deployment.yaml            │ kubernetes │         3         │
+├─────────────────────────────────────────────┼────────────┼───────────────────┤
+│ DEVSECOPS/apache/namespace.yaml             │ kubernetes │         0         │
+├─────────────────────────────────────────────┼────────────┼───────────────────┤
+│ DEVSECOPS/apache/service.yaml               │ kubernetes │         0         │
+├─────────────────────────────────────────────┼────────────┼───────────────────┤
+│ DEVSECOPS/nginx/deployment.yaml             │ kubernetes │         3         │
+├─────────────────────────────────────────────┼────────────┼───────────────────┤
+│ DEVSECOPS/nginx/namespace.yaml              │ kubernetes │         0         │
+├─────────────────────────────────────────────┼────────────┼───────────────────┤
+│ DEVSECOPS/nginx/service.yaml                │ kubernetes │         0         │
+├─────────────────────────────────────────────┼────────────┼───────────────────┤
+│ nsg.tf                                      │ terraform  │         5         │
+└─────────────────────────────────────────────┴────────────┴───────────────────┘
+Legend:
+- '-': Not scanned
+- '0': Clean (no security findings detected)
+
+
+DEVSECOPS/apache/deployment.yaml (kubernetes)
+=============================================
+Tests: 25 (SUCCESSES: 22, FAILURES: 3)
+Failures: 3 (HIGH: 3, CRITICAL: 0)
+
+AVD-KSV-0014 (HIGH): Container 'apache2' of Deployment 'apache2-deployment' should set 'securityContext.readOnlyRootFilesystem' to true
+════════════════════════════════════════
+An immutable root file system prevents applications from writing to their local disk. This can limit intrusions, as attackers will not be able to tamper with the file system or write foreign executables to disk.
+
+See https://avd.aquasec.com/misconfig/ksv014
+────────────────────────────────────────
+ DEVSECOPS/apache/deployment.yaml:19-25
+────────────────────────────────────────
+  19 ┌         - name: apache2
+  20 │           image: ghcr.io/servercontainers/apache2-ssl-secure:latest
+  21 │           ports:
+  22 │             - containerPort: 80
+  23 │           volumeMounts:
+  24 │             - name: html-volume
+  25 └               mountPath: /var/www/html
+────────────────────────────────────────
+
+
+AVD-KSV-0118 (HIGH): container apache2-deployment in apache-ssl namespace is using the default security context
+════════════════════════════════════════
+Security context controls the allocation of security parameters for the pod/container/volume, ensuring the appropriate level of protection. Relying on default security context may expose vulnerabilities to potential attacks that rely on privileged access.
+
+See https://avd.aquasec.com/misconfig/ksv118
+────────────────────────────────────────
+ DEVSECOPS/apache/deployment.yaml:19-25
+────────────────────────────────────────
+  19 ┌         - name: apache2
+  20 │           image: ghcr.io/servercontainers/apache2-ssl-secure:latest
+  21 │           ports:
+  22 │             - containerPort: 80
+  23 │           volumeMounts:
+  24 │             - name: html-volume
+  25 └               mountPath: /var/www/html
+────────────────────────────────────────
+
+
+AVD-KSV-0118 (HIGH): deployment apache2-deployment in apache-ssl namespace is using the default security context, which allows root privileges
+════════════════════════════════════════
+Security context controls the allocation of security parameters for the pod/container/volume, ensuring the appropriate level of protection. Relying on default security context may expose vulnerabilities to potential attacks that rely on privileged access.
+
+See https://avd.aquasec.com/misconfig/ksv118
+────────────────────────────────────────
+ DEVSECOPS/apache/deployment.yaml:18-32
+────────────────────────────────────────
+  18 ┌       containers:
+  19 │         - name: apache2
+  20 │           image: ghcr.io/servercontainers/apache2-ssl-secure:latest
+  21 │           ports:
+  22 │             - containerPort: 80
+  23 │           volumeMounts:
+  24 │             - name: html-volume
+  25 │               mountPath: /var/www/html
+  26 └       volumes:
+  ..   
+────────────────────────────────────────
+
+
+
+DEVSECOPS/nginx/deployment.yaml (kubernetes)
+============================================
+Tests: 25 (SUCCESSES: 22, FAILURES: 3)
+Failures: 3 (HIGH: 3, CRITICAL: 0)
+
+AVD-KSV-0014 (HIGH): Container 'nginx' of Deployment 'nginx-deployment' should set 'securityContext.readOnlyRootFilesystem' to true
+════════════════════════════════════════
+An immutable root file system prevents applications from writing to their local disk. This can limit intrusions, as attackers will not be able to tamper with the file system or write foreign executables to disk.
+
+See https://avd.aquasec.com/misconfig/ksv014
+────────────────────────────────────────
+ DEVSECOPS/nginx/deployment.yaml:17-20
+────────────────────────────────────────
+  17 ┌         - name: nginx
+  18 │           image: ghcr.io/linuxserver/nginx:latest
+  19 │           ports:
+  20 └             - containerPort: 80
+────────────────────────────────────────
+
+
+AVD-KSV-0118 (HIGH): container nginx-deployment in nginx-test namespace is using the default security context
+════════════════════════════════════════
+Security context controls the allocation of security parameters for the pod/container/volume, ensuring the appropriate level of protection. Relying on default security context may expose vulnerabilities to potential attacks that rely on privileged access.
+
+See https://avd.aquasec.com/misconfig/ksv118
+────────────────────────────────────────
+ DEVSECOPS/nginx/deployment.yaml:17-20
+────────────────────────────────────────
+  17 ┌         - name: nginx
+  18 │           image: ghcr.io/linuxserver/nginx:latest
+  19 │           ports:
+  20 └             - containerPort: 80
+────────────────────────────────────────
+
+
+AVD-KSV-0118 (HIGH): deployment nginx-deployment in nginx-test namespace is using the default security context, which allows root privileges
+════════════════════════════════════════
+Security context controls the allocation of security parameters for the pod/container/volume, ensuring the appropriate level of protection. Relying on default security context may expose vulnerabilities to potential attacks that rely on privileged access.
+
+See https://avd.aquasec.com/misconfig/ksv118
+────────────────────────────────────────
+ DEVSECOPS/nginx/deployment.yaml:16-20
+────────────────────────────────────────
+  16 ┌       containers:
+  17 │         - name: nginx
+  18 │           image: ghcr.io/linuxserver/nginx:latest
+  19 │           ports:
+  20 └             - containerPort: 80
+────────────────────────────────────────
+
+
+
+nsg.tf (terraform)
+==================
+Tests: 5 (SUCCESSES: 0, FAILURES: 5)
+Failures: 5 (HIGH: 0, CRITICAL: 5)
+
+AVD-AZU-0047 (CRITICAL): Security group rule allows unrestricted ingress from any IP address.
+════════════════════════════════════════
+Opening up ports to allow connections from the public internet is generally to be avoided. You should restrict access to IP addresses or ranges that are explicitly required where possible.
+
+
+See https://avd.aquasec.com/misconfig/avd-azu-0047
+────────────────────────────────────────
+ nsg.tf:33
+   via nsg.tf:23-37 (azurerm_network_security_rule.allow_icmp)
+────────────────────────────────────────
+  23   resource "azurerm_network_security_rule" "allow_icmp" {
+  ..   
+  33 [   source_address_prefix       = "*"
+  ..   
+  37   }
+────────────────────────────────────────
+
+
+AVD-AZU-0047 (CRITICAL): Security group rule allows unrestricted ingress from any IP address.
+════════════════════════════════════════
+Opening up ports to allow connections from the public internet is generally to be avoided. You should restrict access to IP addresses or ranges that are explicitly required where possible.
+
+
+See https://avd.aquasec.com/misconfig/avd-azu-0047
+────────────────────────────────────────
+ nsg.tf:17
+   via nsg.tf:7-21 (azurerm_network_security_rule.allow_ssh)
+────────────────────────────────────────
+   7   resource "azurerm_network_security_rule" "allow_ssh" {
+   .   
+  17 [   source_address_prefix       = "*"
+  ..   
+  21   }
+────────────────────────────────────────
+
+
+AVD-AZU-0048 (CRITICAL): Security group rule allows unrestricted ingress to RDP port from any IP address.
+════════════════════════════════════════
+RDP access can be configured on either the network security group or in the network security group rule.
+RDP access should not be permitted from the internet (*, 0.0.0.0, /0, internet, any). Consider using the Azure Bastion Service.
+
+
+See https://avd.aquasec.com/misconfig/avd-azu-0048
+────────────────────────────────────────
+ nsg.tf:33
+   via nsg.tf:23-37 (azurerm_network_security_rule.allow_icmp)
+────────────────────────────────────────
+  23   resource "azurerm_network_security_rule" "allow_icmp" {
+  ..   
+  33 [   source_address_prefix       = "*"
+  ..   
+  37   }
+────────────────────────────────────────
+
+
+AVD-AZU-0050 (CRITICAL): Security group rule allows unrestricted ingress to SSH port from any IP address.
+════════════════════════════════════════
+SSH access can be configured on either the network security group or in the network security group rule.
+SSH access should not be permitted from the internet (*, 0.0.0.0, /0, internet, any)
+
+
+See https://avd.aquasec.com/misconfig/avd-azu-0050
+────────────────────────────────────────
+ nsg.tf:33
+   via nsg.tf:23-37 (azurerm_network_security_rule.allow_icmp)
+────────────────────────────────────────
+  23   resource "azurerm_network_security_rule" "allow_icmp" {
+  ..   
+  33 [   source_address_prefix       = "*"
+  ..   
+  37   }
+────────────────────────────────────────
+
+
+AVD-AZU-0050 (CRITICAL): Security group rule allows unrestricted ingress to SSH port from any IP address.
+════════════════════════════════════════
+SSH access can be configured on either the network security group or in the network security group rule.
+SSH access should not be permitted from the internet (*, 0.0.0.0, /0, internet, any)
+
+
+See https://avd.aquasec.com/misconfig/avd-azu-0050
+────────────────────────────────────────
+ nsg.tf:17
+   via nsg.tf:7-21 (azurerm_network_security_rule.allow_ssh)
+────────────────────────────────────────
+   7   resource "azurerm_network_security_rule" "allow_ssh" {
+   .   
+  17 [   source_address_prefix       = "*"
+  ..   
+  21   }
+────────────────────────────────────────
+
+
