@@ -1,4 +1,4 @@
-namespace: nginx-test
+namespace: nginx-test-dev
 resources:
   - ../../base
 
