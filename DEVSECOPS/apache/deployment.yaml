@@ -20,10 +20,13 @@ spec:
           image: ghcr.io/servercontainers/apache2-ssl-secure:latest
           ports:
             - containerPort: 80
-          resources:
-            requests:
-              cpu: 100m
-              memory: 128Mi
-            limits:
-              cpu: 500m
-              memory: 512Mi
+          volumeMounts:
+            - name: html-volume
+              mountPath: /usr/local/apache2/htdocs/
+      volumes:
+        - name: html-volume
+          configMap:
+            name: apache-html
+            items:
+              - key: index.html
+                path: index.html
