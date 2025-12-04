@@ -19,14 +19,11 @@ spec:
           ports:
             - containerPort: 80
           volumeMounts:
-            - name: html-content
+            - name: html-volume
               mountPath: /config/www/
               readOnly: true
-          securityContext:
-            runAsUser: 911
-            runAsGroup: 911
       volumes:
-        - name: html-content
+        - name: html-volume
           configMap:
             name: nginx-html
             items:
