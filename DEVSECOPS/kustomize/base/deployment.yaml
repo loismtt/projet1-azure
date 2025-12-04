@@ -20,7 +20,7 @@ spec:
             - containerPort: 80
           volumeMounts:
             - name: html-content
-              mountPath: /usr/share/nginx/html
+              mountPath: /var/www/html
               readOnly: true
       volumes:
         - name: html-content
