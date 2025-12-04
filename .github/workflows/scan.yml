@@ -10,17 +10,19 @@ jobs:
     
     steps:
     - name: Checkout code
+      # Action pour récupérer le code, nécessaire pour créer l'artefact
       uses: actions/checkout@v4
 
     - name: Lancement du scan Trivy sur l'image Nginx et exportation
-      # Ligne corrigée : Utilisation de @main au lieu de @master ou d'une version obsolète
-      uses: aquasec/trivy-action@main 
+      # Fix pour l'erreur 'repository not found' : utilisation du tag de version stable.
+      uses: aquasec/trivy-action@0.1.60 
       with:
         image-ref: 'ghcr.io/linuxserver/nginx:latest'
         scan-type: 'image'
         format: 'table'
         severity: 'CRITICAL,HIGH'
         exit-code: '1'
+        # Le rapport est exporté dans ce fichier
         output: 'trivy-report-nginx.txt'
 
     - name: Upload du rapport Trivy en tant qu'artefact
