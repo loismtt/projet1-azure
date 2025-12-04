@@ -1,20 +1,29 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: tiny-httpd-deployment
-  namespace: tiny-httpd
+  name: apache2-deployment
+  namespace: apache-ssl
+  labels:
+    app: apache2
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
-      app: tiny-httpd
+      app: apache2
   template:
     metadata:
       labels:
-        app: tiny-httpd
+        app: apache2
     spec:
       containers:
-        - name: tiny-httpd
+        - name: apache2
           image: ghcr.io/servercontainers/apache2-ssl-secure:latest
           ports:
             - containerPort: 80
+          resources:
+            requests:
+              cpu: 100m
+              memory: 128Mi
+            limits:
+              cpu: 500m
+              memory: 512Mi
