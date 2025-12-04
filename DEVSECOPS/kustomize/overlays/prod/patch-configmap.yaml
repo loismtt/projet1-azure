@@ -8,7 +8,7 @@ data:
     <html lang="fr">
     <head>
         <meta charset="UTF-8">
-        <title>Nginx PROD</title>
+        <title>Nginx DEV</title>
         <style>
             body {
                 font-family: Arial;
