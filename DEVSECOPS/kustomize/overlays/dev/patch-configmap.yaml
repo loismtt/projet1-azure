@@ -1,0 +1,26 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: nginx-html
+data:
+  index.html: |
+    <!DOCTYPE html>
+    <html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+        <title>Nginx DEV</title>
+        <style>
+            body {
+                font-family: Arial;
+                text-align: center;
+                margin-top: 50px;
+                background-color: lightblue;  # couleur dev
+            }
+            h1 { color: #2c3e50; }
+        </style>
+    </head>
+    <body>
+        <h1>Bienvenue sur Nginx DEV</h1>
+        <p>Ceci est le déploiement DEV</p>
+    </body>
+    </html>

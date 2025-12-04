@@ -1,0 +1,8 @@
+namespace: nginx-test
+resources:
+  - ../../base
+
+namePrefix: dev-
+
+patchesStrategicMerge:
+  - patch-configmap.yaml
