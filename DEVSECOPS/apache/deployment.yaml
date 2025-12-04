@@ -15,6 +15,6 @@ spec:
     spec:
       containers:
         - name: tiny-httpd
-          image: ghcr.io/cisagov/apache2:nightly
+          image: ghcr.io/servercontainers/apache2-ssl-secure:latest
           ports:
             - containerPort: 80
