@@ -8,13 +8,13 @@ data:
     <html lang="fr">
     <head>
         <meta charset="UTF-8">
-        <title>Nginx DEV</title>
+        <title>Nginx PROD</title>
         <style>
             body {
                 font-family: Arial;
                 text-align: center;
                 margin-top: 50px;
-                background-color: lightgreen;  # couleur prod
+                background-color: lightblue;  # couleur dev
             }
             h1 { color: #2c3e50; }
         </style>
