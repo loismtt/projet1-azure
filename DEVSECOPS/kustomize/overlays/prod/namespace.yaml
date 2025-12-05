@@ -1,4 +1,5 @@
+# namespace.yaml
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: nginx-test-prod
+  name: nginx-test-prod # Crée l'objet Namespace

@@ -3,10 +3,11 @@ kind: Kustomization
 
 resources:
   - ../../base
+  - namespace.yaml  # <--- CORRECTION: La définition de Namespace est une ressource, pas un patch.
 
 namePrefix: prod-
 
 patchesStrategicMerge:
   - patch-configmap.yaml
   - service-patch.yaml
-  - namespace.yaml
+  # Le fichier namespace.yaml a été retiré de cette section.
