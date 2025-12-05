@@ -3,13 +3,11 @@ kind: Kustomization
 
 resources:
   - ../../base
-  # - namespace.yaml  <--- RETIRÉ: On utilise le champ 'namespace:' ci-dessous.
+  - namespace.yaml  # <--- CORRECTION: La définition de Namespace est une ressource, pas un patch.
 
-namePrefix: prod-
-
-# AJOUT DE CETTE LIGNE
-namespace: nginx-test-prod # <--- CORRECTION: Indique le Namespace pour TOUTES les ressources.
+namePrefix: prod- 
 
 patchesStrategicMerge:
   - patch-configmap.yaml
   - service-patch.yaml
+  # Le fichier namespace.yaml a été retiré de cette section.
